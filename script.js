@@ -9,8 +9,12 @@
     babyName: 'Ellie',                      // prénom à dévoiler (une lettre apparaît tous les goal/lettres pétales)
     goal: 10,                               // pétales à attraper pour tout dévoiler
     birth: '2026-10-12T04:12:00+02:00',     // date/heure de naissance (compteur d'âge)
-    email: 'prenom.nom@exemple.com',        // adresse qui reçoit les messages
-    parents: "les parents d'Ellie",         // utilisé dans le mail
+    // Adresses Gmail qui reçoivent les messages du formulaire (envoi via formsubmit.co)
+    emails: [
+      'alexis43h.hertault@gmail.com',
+      'alisea43h.lemaner@gmail.com',
+    ],
+    parents: "parents d'Ellie",            // utilisé dans le mail
   };
   /* ---------------------------------- */
 
@@ -233,6 +237,17 @@
   });
   $('#replayBtn').addEventListener('click', replay);
 
+  /* ---------- Pétales qui tombent autour du prénom ---------- */
+  const heroPetals = $('#heroPetals');
+  if (heroPetals) {
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('i');
+      const size = rand(9, 17);
+      p.style.cssText = `left:${rand(0, 100)}%;width:${size}px;height:${size * 0.8}px;--sway:${rand(-60, 60)}px;animation-duration:${rand(9, 16)}s;animation-delay:${rand(-16, 0)}s`;
+      heroPetals.appendChild(p);
+    }
+  }
+
   /* ==========================================================
      PAGE : révélations au scroll
      ========================================================== */
@@ -268,11 +283,16 @@
     probe.src = photo.getAttribute('src');
   }
 
-  /* ---------- Réponse (ouvre l'appli mail) ---------- */
+  /* ---------- Réponse : envoi direct par mail (formsubmit.co) ---------- */
   const form = $('#rsvpForm');
   const note = $('#formNote');
-  form.addEventListener('submit', (e) => {
+  const sendBtn = form.querySelector('button[type="submit"]');
+  const sendLabel = sendBtn.querySelector('span');
+  let sending = false;
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (sending) return;
     const nom = form.nom.value.trim();
     if (!nom) {
       form.nom.closest('.field').classList.add('invalid');
@@ -282,16 +302,40 @@
     }
     form.nom.closest('.field').classList.remove('invalid');
 
-    const lines = [
-      `Bonjour à ${CONFIG.parents},`,
-      '',
-      form.msg.value.trim() || `Bienvenue petite ${CONFIG.babyName} !`,
-      form.visite.checked && `\nNous aimerions passer rencontrer ${CONFIG.babyName} quand vous serez prêts.`,
-      '',
-      nom,
-    ].filter(l => l !== false);
-    const subject = `Un mot pour ${CONFIG.babyName} — ${nom}`;
-    note.textContent = "Votre application mail va s'ouvrir — il ne reste qu'à envoyer 🌸";
-    window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+    const message = form.msg.value.trim() || `Bienvenue petite ${CONFIG.babyName}\u00a0!`;
+    const visite = form.visite.checked;
+    const [to, ...cc] = CONFIG.emails.filter(Boolean);
+
+    const data = {
+      _subject: `Un mot pour ${CONFIG.babyName} — ${nom}`,
+      _template: 'box',
+      _captcha: 'false',
+      Nom: nom,
+      Message: message,
+      Visite: visite ? `Oui, aimerait passer rencontrer ${CONFIG.babyName} quand vous serez prêts` : 'Non',
+    };
+    if (cc.length) data._cc = cc.join(',');
+
+    sending = true;
+    sendBtn.disabled = true;
+    sendLabel.textContent = 'Envoi en cours…';
+    note.textContent = '';
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(to)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || String(out.success) === 'false') throw new Error(out.message || res.status);
+      form.reset();
+      note.textContent = `Merci ${nom}, votre message est bien parti 🌸`;
+    } catch (err) {
+      note.textContent = "Le message n'a pas pu partir. Vérifiez votre connexion et réessayez.";
+    } finally {
+      sending = false;
+      sendBtn.disabled = false;
+      sendLabel.textContent = 'Envoyer mon message';
+    }
   });
 })();

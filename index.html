@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Ellie — Faire-part de naissance</title>
-  <meta name="description" content="Ellie est née ! Attrapez les pétales de sakura pour découvrir son prénom.">
+  <title>Faire-part de naissance</title>
+  <meta name="description" content="Ellie est née ! Attrapez les pétales de sakura pour découvrir son prénom.">
   <meta name="theme-color" content="#17223b">
   <meta property="og:title" content="Ellie — Faire-part de naissance">
   <meta property="og:description" content="Un petit prénom se cache dans les pétales… attrapez-les pour le découvrir.">
@@ -191,14 +191,54 @@
      ============================================================ -->
 <main class="invite" id="invite" inert>
 
-  <!-- Héro -->
+  <!-- Héros -->
   <header class="hero">
-    <p class="vertical hero-kanji" aria-hidden="true">愛</p>
+    <!-- Décor : branches de cerisier + pétales qui tombent -->
+    <svg class="hero-branch hero-branch-tl" viewBox="0 0 420 260" aria-hidden="true">
+      <g fill="none" stroke="#2c1d24" stroke-linecap="round">
+        <path d="M430 14 C330 30 250 70 170 110 C120 134 80 160 40 214" stroke-width="12"/>
+        <path d="M300 48 C270 90 262 120 266 160" stroke-width="6"/>
+        <path d="M200 98 C196 130 170 150 160 190" stroke-width="5"/>
+        <path d="M120 140 C110 120 84 106 60 104" stroke-width="4"/>
+      </g>
+      <g style="color:#f7c6d2">
+        <use href="#blossom" x="238" y="62" width="44" height="44"/>
+        <use href="#blossom" x="150" y="94" width="38" height="38" style="color:#f4b2c3"/>
+        <use href="#blossom" x="30" y="190" width="40" height="40"/>
+        <use href="#blossom" x="248" y="150" width="34" height="34" style="color:#f4b2c3"/>
+        <use href="#blossom" x="134" y="176" width="34" height="34"/>
+        <use href="#blossom" x="40" y="82" width="36" height="36"/>
+        <use href="#blossom" x="316" y="18" width="40" height="40" style="color:#f4b2c3"/>
+        <use href="#blossom" x="92" y="130" width="30" height="30"/>
+      </g>
+    </svg>
+    <svg class="hero-branch hero-branch-br" viewBox="0 0 420 260" aria-hidden="true">
+      <g fill="none" stroke="#2c1d24" stroke-linecap="round">
+        <path d="M430 14 C330 30 250 70 170 110 C120 134 80 160 40 214" stroke-width="12"/>
+        <path d="M300 48 C270 90 262 120 266 160" stroke-width="6"/>
+        <path d="M200 98 C196 130 170 150 160 190" stroke-width="5"/>
+      </g>
+      <g style="color:#f7c6d2">
+        <use href="#blossom" x="238" y="62" width="44" height="44"/>
+        <use href="#blossom" x="150" y="94" width="38" height="38" style="color:#f4b2c3"/>
+        <use href="#blossom" x="30" y="190" width="40" height="40"/>
+        <use href="#blossom" x="248" y="150" width="34" height="34" style="color:#f4b2c3"/>
+        <use href="#blossom" x="316" y="18" width="40" height="40" style="color:#f4b2c3"/>
+      </g>
+    </svg>
+    <div class="hero-petals" id="heroPetals" aria-hidden="true"></div>
+
+    <p class="vertical hero-kanji" aria-hidden="true">エリー</p>
     <div class="hero-inner">
       <p class="eyebrow reveal">誕生 · Faire-part de naissance</p>
       <p class="hero-sub reveal" style="--d:.1s">Notre petit rayon de soleil est arrivé</p>
-      <h2 class="baby-name reveal" style="--d:.2s">Ellie</h2>
-      <div class="hanko reveal" style="--d:.3s" aria-hidden="true"><span>愛</span></div>
+      <div class="name-wrap reveal" style="--d:.2s">
+        <svg class="name-blossom nb-1" viewBox="0 0 40 40" aria-hidden="true"><use href="#blossom" width="40" height="40"/></svg>
+        <svg class="name-blossom nb-2" viewBox="0 0 40 40" aria-hidden="true"><use href="#blossom" width="40" height="40"/></svg>
+        <svg class="name-blossom nb-3" viewBox="0 0 40 40" aria-hidden="true"><use href="#blossom" width="40" height="40"/></svg>
+        <svg class="name-blossom nb-4" viewBox="0 0 40 40" aria-hidden="true"><use href="#blossom" width="40" height="40"/></svg>
+        <h2 class="baby-name">Ellie</h2>
+      </div>
       <p class="hero-date reveal" style="--d:.4s">Née le 12 octobre 2026</p>
     </div>
     <p class="scroll-cue" aria-hidden="true"><span>↓</span></p>
@@ -210,12 +250,11 @@
       <p class="eyebrow light reveal">Déjà parmi nous depuis</p>
 
       <div class="countdown reveal" id="countdown" role="timer" aria-label="Âge d'Ellie">
-        <div><b id="cdD">--</b><span>jours <em aria-hidden="true">日</em></span></div>
-        <div><b id="cdH">--</b><span>heures <em aria-hidden="true">時</em></span></div>
-        <div><b id="cdM">--</b><span>minutes <em aria-hidden="true">分</em></span></div>
-        <div><b id="cdS">--</b><span>secondes <em aria-hidden="true">秒</em></span></div>
+        <div><b id="cdD">--</b><span>jours</span></div>
+        <div><b id="cdH">--</b><span>heures</span></div>
+        <div><b id="cdM">--</b><span>minutes</span></div>
+        <div><b id="cdS">--</b><span>secondes</span></div>
       </div>
-      <p class="jp-date reveal" aria-hidden="true">二〇二六年　十月　十二日</p>
     </div>
   </section>
 
@@ -250,7 +289,7 @@
         <article class="card reveal" style="--d:.16s">
           <span class="card-kanji" aria-hidden="true">長</span>
           <h4>49&nbsp;cm</h4>
-          <p>Déjà bien décidée</p>
+          <p>Grande comme papa</p>
         </article>
         <article class="card reveal" style="--d:.24s">
           <span class="card-kanji" aria-hidden="true">地</span>
@@ -269,10 +308,13 @@
         <h3>Un petit mot</h3>
       </header>
       <blockquote class="letter reveal">
-        <p>Elle est arrivée, minuscule et parfaite, et nos cœurs ont immédiatement
-        fait de la place.</p>
-        <p>Maman et bébé se portent à merveille. Nous avons hâte de vous la présenter,
-        quand nous aurons repris un peu nos esprits&nbsp;!</p>
+        <p class="mot">Le 12 octobre, au petit matin, Ellie est venue agrandir notre famille.</p>
+        <p class="haiku-sep" aria-hidden="true">✿</p>
+        <p class="mot">Depuis, chaque instant passé à ses côtés nous émerveille un peu plus.</p>
+        <p class="haiku-sep" aria-hidden="true">✿</p>
+        <p class="mot">Notre cœur est rempli d'amour et de bonheur.</p>
+        <p class="haiku-end">Maman et bébé vont très bien (papa aussi !).
+        Nous avons hâte de vous la présenter.</p>
         <footer>— Ses parents</footer>
       </blockquote>
     </div>
