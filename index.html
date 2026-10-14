@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ellie — Faire-part de naissance</title>
+  <meta name="description" content="Ellie est née ! Attrapez les pétales de sakura pour découvrir son prénom.">
+  <meta name="theme-color" content="#17223b">
+  <meta property="og:title" content="Ellie — Faire-part de naissance">
+  <meta property="og:description" content="Un petit prénom se cache dans les pétales… attrapez-les pour le découvrir.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script>document.documentElement.classList.add('js');</script>
+  <noscript><style>.stage,.shoji{display:none!important}.reveal{opacity:1!important;transform:none!important}body.locked{overflow:auto!important}</style></noscript>
+</head>
+<body class="locked">
+
+<!-- Définitions réutilisables (fleur de sakura) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="blossom" viewBox="-20 -20 40 40">
+      <g fill="currentColor">
+        <ellipse cx="0" cy="-9" rx="6.8" ry="9.5"/>
+        <ellipse cx="0" cy="-9" rx="6.8" ry="9.5" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-9" rx="6.8" ry="9.5" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-9" rx="6.8" ry="9.5" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-9" rx="6.8" ry="9.5" transform="rotate(288)"/>
+      </g>
+      <circle r="3.2" fill="#e0587a"/>
+      <g stroke="#e0587a" stroke-width=".8" stroke-linecap="round">
+        <path d="M0 0v-6M0 0l5.7-1.9M0 0l3.5 4.9M0 0l-3.5 4.9M0 0l-5.7-1.9"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============================================================
+     SCÈNE D'INTRO + JEU
+     ============================================================ -->
+<div class="stage" id="stage" data-state="intro">
+  <div class="sky"></div>
+  <div class="stars" id="stars" aria-hidden="true"></div>
+
+  <!-- Paysage : soleil, Fuji, torii, lac -->
+  <svg class="scene" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+    <defs>
+      <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#ff8a6a" stop-opacity=".55"/>
+        <stop offset="1" stop-color="#ff8a6a" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="fuji" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#4a3f7a"/>
+        <stop offset="1" stop-color="#241d47"/>
+      </linearGradient>
+      <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#7a4f86"/>
+        <stop offset="1" stop-color="#4a3470"/>
+      </linearGradient>
+      <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3b2d63"/>
+        <stop offset="1" stop-color="#0c1127"/>
+      </linearGradient>
+      <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f6c6b0" stop-opacity="0"/>
+        <stop offset=".6" stop-color="#f6c6b0" stop-opacity=".45"/>
+        <stop offset="1" stop-color="#f6c6b0" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <circle cx="880" cy="540" r="330" fill="url(#sunGlow)"/>
+    <circle class="sun" cx="880" cy="530" r="118" fill="#d8342c"/>
+
+    <!-- collines lointaines -->
+    <path d="M0 640 C140 590 260 560 380 600 C470 628 520 600 600 560 L600 720 L0 720Z" fill="url(#far)" opacity=".9"/>
+    <path d="M840 720 L840 600 C940 560 1040 580 1120 610 C1220 650 1320 600 1440 560 L1440 720Z" fill="url(#far)" opacity=".9"/>
+
+    <!-- Fuji -->
+    <path d="M300 720 C450 640 600 400 680 310 C702 288 738 288 760 310 C840 400 990 640 1140 720Z" fill="url(#fuji)"/>
+    <path d="M652 352 C664 330 676 316 684 310 C704 290 736 290 756 310 C764 318 776 332 788 352 L766 340 L748 366 L728 338 L708 368 L688 340 L672 362Z" fill="#f6e8ee" opacity=".92"/>
+
+    <!-- brume -->
+    <rect x="0" y="600" width="1440" height="140" fill="url(#mist)"/>
+
+    <!-- lac -->
+    <rect x="0" y="716" width="1440" height="200" fill="url(#water)"/>
+    <g class="reflect" fill="#ff8a6a">
+      <rect x="800" y="736" width="160" height="4" rx="2" opacity=".7"/>
+      <rect x="820" y="758" width="120" height="4" rx="2" opacity=".55"/>
+      <rect x="835" y="780" width="90" height="4" rx="2" opacity=".45"/>
+      <rect x="850" y="803" width="60" height="3" rx="1.5" opacity=".35"/>
+      <rect x="862" y="826" width="36" height="3" rx="1.5" opacity=".25"/>
+    </g>
+
+    <!-- torii dans l'eau -->
+    <g fill="#c7352b" transform="translate(520 0)">
+      <rect x="-3" y="640" width="12" height="96"/>
+      <rect x="77" y="640" width="12" height="96"/>
+      <path d="M-22 636 Q43 650 108 636 L112 622 Q43 636 -26 622Z" fill="#14091a"/>
+      <rect x="2" y="652" width="82" height="7"/>
+      <path d="M-18 628 Q43 640 104 628 L106 620 Q43 632 -20 620Z"/>
+      <rect x="-3" y="736" width="12" height="3" fill="#000" opacity=".25"/>
+    </g>
+    <g fill="#c7352b" opacity=".18" transform="translate(520 0)">
+      <rect x="-3" y="742" width="12" height="40"/>
+      <rect x="77" y="742" width="12" height="40"/>
+    </g>
+  </svg>
+
+  <!-- Branche de cerisier (haut) -->
+  <svg class="branch branch-r" viewBox="0 0 420 260" aria-hidden="true">
+    <g fill="none" stroke="#2c1d24" stroke-linecap="round">
+      <path d="M430 14 C330 30 250 70 170 110 C120 134 80 160 40 214" stroke-width="12"/>
+      <path d="M300 48 C270 90 262 120 266 160" stroke-width="6"/>
+      <path d="M200 98 C196 130 170 150 160 190" stroke-width="5"/>
+      <path d="M120 140 C110 120 84 106 60 104" stroke-width="4"/>
+    </g>
+    <g style="color:#f7c6d2">
+      <use href="#blossom" x="238" y="62" width="44" height="44"/>
+      <use href="#blossom" x="150" y="94" width="38" height="38" style="color:#f4b2c3"/>
+      <use href="#blossom" x="30" y="190" width="40" height="40"/>
+      <use href="#blossom" x="248" y="150" width="34" height="34" style="color:#f4b2c3"/>
+      <use href="#blossom" x="134" y="176" width="34" height="34"/>
+      <use href="#blossom" x="40" y="82" width="36" height="36"/>
+      <use href="#blossom" x="316" y="18" width="40" height="40" style="color:#f4b2c3"/>
+      <use href="#blossom" x="92" y="130" width="30" height="30"/>
+    </g>
+  </svg>
+  <svg class="branch branch-l" viewBox="0 0 420 260" aria-hidden="true">
+    <g fill="none" stroke="#2c1d24" stroke-linecap="round">
+      <path d="M430 14 C330 30 250 70 170 110 C120 134 80 160 40 214" stroke-width="12"/>
+      <path d="M300 48 C270 90 262 120 266 160" stroke-width="6"/>
+      <path d="M200 98 C196 130 170 150 160 190" stroke-width="5"/>
+    </g>
+    <g style="color:#f7c6d2">
+      <use href="#blossom" x="238" y="62" width="44" height="44"/>
+      <use href="#blossom" x="150" y="94" width="38" height="38" style="color:#f4b2c3"/>
+      <use href="#blossom" x="30" y="190" width="40" height="40"/>
+      <use href="#blossom" x="248" y="150" width="34" height="34" style="color:#f4b2c3"/>
+      <use href="#blossom" x="316" y="18" width="40" height="40" style="color:#f4b2c3"/>
+    </g>
+  </svg>
+
+  <!-- Couche des pétales du jeu -->
+  <div class="petals" id="petals"></div>
+
+  <!-- Progression : les lettres du prénom se dévoilent -->
+  <div class="hud" id="hud" aria-live="polite">
+    <div class="hud-letters" id="hudLetters" aria-label="Prénom à découvrir"></div>
+    <p class="hud-text"><span id="hudCount">0</span> / <span id="hudGoal">10</span> pétales</p>
+  </div>
+
+  <!-- Carte d'intro -->
+  <div class="intro" id="intro">
+    <p class="intro-kanji" aria-hidden="true">誕生</p>
+    <p class="eyebrow">Faire-part de naissance</p>
+    <h1>Un petit prénom<br>se cache ici…</h1>
+    <p class="intro-text">
+      Un bébé est arrivé avec les cerisiers en fleurs. Attrapez <strong id="goalText">10</strong> pétales de sakura
+      pour découvrir son prénom, lettre après lettre.
+    </p>
+    <button class="btn" id="startBtn" type="button">
+      <span>Commencer</span>
+      <span class="btn-jp" aria-hidden="true">始</span>
+    </button>
+  </div>
+
+  <!-- Le prénom, une fois dévoilé -->
+  <div class="name-reveal" id="nameReveal" aria-hidden="true">
+    <p class="nr-small">Elle s'appelle</p>
+    <p class="nr-name" id="nrName"></p>
+    <p class="nr-kana">エリー</p>
+  </div>
+
+  <button class="skip" id="skipBtn" type="button">Passer le jeu →</button>
+</div>
+
+<!-- Portes shoji (transition) -->
+<div class="shoji" id="shoji" aria-hidden="true">
+  <div class="panel panel-l"><i class="handle"></i></div>
+  <div class="panel panel-r"><i class="handle"></i></div>
+</div>
+
+<!-- ============================================================
+     LE FAIRE-PART DE NAISSANCE
+     (les textes sont des exemples : remplacez-les par les vôtres)
+     ============================================================ -->
+<main class="invite" id="invite" inert>
+
+  <!-- Héro -->
+  <header class="hero">
+    <p class="vertical hero-kanji" aria-hidden="true">愛</p>
+    <div class="hero-inner">
+      <p class="eyebrow reveal">誕生 · Faire-part de naissance</p>
+      <p class="hero-sub reveal" style="--d:.1s">Notre petit rayon de soleil est arrivé</p>
+      <h2 class="baby-name reveal" style="--d:.2s">Ellie</h2>
+      <div class="hanko reveal" style="--d:.3s" aria-hidden="true"><span>愛</span></div>
+      <p class="hero-date reveal" style="--d:.4s">Née le 12 octobre 2026</p>
+    </div>
+    <p class="scroll-cue" aria-hidden="true"><span>↓</span></p>
+  </header>
+
+  <!-- Âge d'Ellie en direct -->
+  <section class="band band-date">
+    <div class="wrap">
+      <p class="eyebrow light reveal">Déjà parmi nous depuis</p>
+
+      <div class="countdown reveal" id="countdown" role="timer" aria-label="Âge d'Ellie">
+        <div><b id="cdD">--</b><span>jours <em aria-hidden="true">日</em></span></div>
+        <div><b id="cdH">--</b><span>heures <em aria-hidden="true">時</em></span></div>
+        <div><b id="cdM">--</b><span>minutes <em aria-hidden="true">分</em></span></div>
+        <div><b id="cdS">--</b><span>secondes <em aria-hidden="true">秒</em></span></div>
+      </div>
+      <p class="jp-date reveal" aria-hidden="true">二〇二六年　十月　十二日</p>
+    </div>
+  </section>
+
+  <!-- Photo (facultatif : ajoutez un fichier photo.jpg à côté de index.html) -->
+  <section class="section section-photo" id="photoSection" hidden>
+    <div class="wrap narrow">
+      <figure class="photo reveal">
+        <img src="photo.jpg" alt="Ellie" id="babyPhoto">
+      </figure>
+    </div>
+  </section>
+
+  <!-- En chiffres -->
+  <section class="section">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <span class="sec-kanji" aria-hidden="true">命</span>
+        <h3>Son arrivée</h3>
+      </header>
+
+      <div class="cards cards-4">
+        <article class="card reveal">
+          <span class="card-kanji" aria-hidden="true">時</span>
+          <h4>04h12</h4>
+          <p>L'heure de la naissance</p>
+        </article>
+        <article class="card reveal" style="--d:.08s">
+          <span class="card-kanji" aria-hidden="true">重</span>
+          <h4>3,2&nbsp;kg</h4>
+          <p>Un joli petit poids plume</p>
+        </article>
+        <article class="card reveal" style="--d:.16s">
+          <span class="card-kanji" aria-hidden="true">長</span>
+          <h4>49&nbsp;cm</h4>
+          <p>Déjà bien décidée</p>
+        </article>
+        <article class="card reveal" style="--d:.24s">
+          <span class="card-kanji" aria-hidden="true">地</span>
+          <h4>Ville-en-Fleurs</h4>
+          <p>Où tout a commencé</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mot des parents -->
+  <section class="section section-alt">
+    <div class="wrap narrow">
+      <header class="sec-head reveal">
+        <span class="sec-kanji" aria-hidden="true">文</span>
+        <h3>Un petit mot</h3>
+      </header>
+      <blockquote class="letter reveal">
+        <p>Elle est arrivée, minuscule et parfaite, et nos cœurs ont immédiatement
+        fait de la place.</p>
+        <p>Maman et bébé se portent à merveille. Nous avons hâte de vous la présenter,
+        quand nous aurons repris un peu nos esprits&nbsp;!</p>
+        <footer>— Ses parents</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Petit mot pour Ellie -->
+  <section class="band band-rsvp" id="rsvp">
+    <div class="wrap narrow">
+      <header class="sec-head light reveal">
+        <span class="sec-kanji" aria-hidden="true">祝</span>
+        <h3>Un mot pour Ellie</h3>
+      </header>
+      <p class="rsvp-lead reveal">Un message, une pensée, une demande de visite&nbsp;? On vous lit avec plaisir.</p>
+
+      <form class="form reveal" id="rsvpForm" novalidate>
+        <label class="field">
+          <span>Votre nom</span>
+          <input type="text" name="nom" autocomplete="name" placeholder="Prénom Nom" required>
+        </label>
+
+        <label class="field">
+          <span>Votre message</span>
+          <textarea name="msg" rows="4" placeholder="Bienvenue petite Ellie…"></textarea>
+        </label>
+
+        <label class="check">
+          <input type="checkbox" name="visite">
+          <span>J'aimerais passer la rencontrer (quand vous serez prêts)</span>
+        </label>
+
+        <button class="btn btn-gold" type="submit">
+          <span>Envoyer mon message</span>
+          <span class="btn-jp" aria-hidden="true">送</span>
+        </button>
+        <p class="form-note" id="formNote" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Pied de page -->
+  <footer class="footer">
+    <div class="seigaiha" aria-hidden="true"></div>
+    <div class="footer-in">
+      <p class="arigato" aria-hidden="true">ありがとう</p>
+      <p>Merci pour votre tendresse et vos pensées.</p>
+      <p class="sign">Ellie &amp; ses parents</p>
+      <button class="link" id="replayBtn" type="button">↺ Rejouer aux pétales</button>
+    </div>
+  </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
