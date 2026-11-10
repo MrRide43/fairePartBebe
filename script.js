@@ -8,7 +8,7 @@
   const CONFIG = {
     babyName: 'Ellie',                      // prénom à dévoiler (une lettre apparaît tous les goal/lettres pétales)
     goal: 10,                               // pétales à attraper pour tout dévoiler
-    birth: '2026-10-12T04:12:00+02:00',     // date/heure de naissance (compteur d'âge)
+    birth: '2026-11-02T04:12:00+02:00',     // date/heure de naissance (compteur d'âge)
     // Adresses Gmail qui reçoivent les messages du formulaire (envoi via formsubmit.co)
     emails: [
       'alexis43h.hertault@gmail.com',
